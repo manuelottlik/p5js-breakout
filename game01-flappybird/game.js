@@ -16,7 +16,7 @@ var scoreFont;
 
 //vor Start des Programms wird die Schriftart geladen
 function preload() {
-    scoreFont = loadFont('../lib/fonts/font.ttf');
+    scoreFont = loadFont('../lib/fonts/flappybird.ttf');
 }
 
 //diese p5.js-Standardfunktion wird zum Start einmal ausgeführt
