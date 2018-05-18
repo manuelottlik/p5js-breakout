@@ -1,0 +1,53 @@
+function setup() {
+	createCanvas(1000, 1000);
+	fill(random(255),random(255),random(255));
+	x = width/2;
+	y = height/2;
+	xspeed = random(5, 10);
+	yspeed = random(5, 10);
+	ball = 20;
+	rectheight = 20;
+	rectwidth = width/4;
+	kastenwidth = 100;
+	kastenheight = 20;
+	kastenx = [];
+	kasteny = [];
+}
+
+function draw() {
+	background(200);
+	
+	x = x+xspeed;
+	y = y+yspeed;
+	
+	
+	ellipse(x, y, ball,ball);
+	
+	if(x+ball/2 >= width || x-ball/2 <= 0) {
+		xspeed = xspeed*-1;
+	}
+	
+	if(y+ball/2 >= height || y-ball/2 <= 0) {
+		yspeed = yspeed*-1;
+	}
+	
+	if(y+ball/2 >= height/10*9 && y+ball/2 <= height/10*9+rectheight && x+ball/2 <= mouseX+rectwidth/2 && x-ball/2 >= mouseX-rectwidth/2) {
+		yspeed = yspeed*-1;
+		kastenx.push(random(width));
+		kasteny.push(random(height/10*9-100));
+	}
+	
+	
+	rect(mouseX-rectwidth/2, height/10*9, rectwidth, rectheight);
+	
+	for(i = 0; i < kastenx.length; i++) {
+		rect(kastenx[i], kasteny[i], kastenwidth, kastenheight);
+		
+		if(((y+ball/2 >= kasteny[i] && y-ball/2 <= kasteny[i]) || (y-ball/2 <= kasteny[i]+kastenheight && y+ball/2 >= kasteny[i]+kastenheight)) && ((x-ball/2 <= kastenx[i]+kastenwidth && x-ball/2 >= kastenx[i]+kastenwidth) || (x+ball/2 >= kastenx[i] && x-ball/2 <= kastenx[i]))) {
+			yspeed = yspeed*-1;
+			kastenx.splice(i, i+1);
+			kasteny.splice(i, i+1);
+		}
+		
+	}
+}
