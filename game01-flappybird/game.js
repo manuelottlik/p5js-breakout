@@ -16,7 +16,8 @@ var scoreFont;
 
 //vor Start des Programms wird die Schriftart geladen
 function preload() {
-    scoreFont = loadFont('../lib/fonts/flappybird.ttf');
+    //scoreFont = loadFont('../lib/fonts/flappybird.ttf');
+    scoreFont = loadFont('flappybird.ttf');
 }
 
 //diese p5.js-Standardfunktion wird zum Start einmal ausgeführt
@@ -50,9 +51,16 @@ function draw() {
         }
 
         //durch alle Röhren iterieren
+        jumped = false;
         for(var i = ctPipes.length - 1; i >= 0; i--) {
             //Röhre anzeigen
             ctPipes[i].show();
+        
+            if(jumped == false && ctBird.y + birdSize/2 >= ctPipes[i].gap + pipeGap && ctPipes[i].x > ctBird.x - pipeWidth) {
+                console.log("jump");
+                //ctBird.jump();
+                jumped = true;
+            }
 
             //prüfen, ob der Vogel mit der Röhre kollidiert
             ctPipes[i].checkCollision(ctBird.y);
